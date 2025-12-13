@@ -1,0 +1,11 @@
+{
+  "network": "sepolia",
+  "contractName": "BRSCPPRewards",
+  "contractAddress": "0x6EA8EC35a6B8c462636c310Bc65E93DdB75Fe866",
+  "deployer": "0x2786e48814C2E562A92aE53187b848DBB312d1a4",
+  "deploymentTime": "2025-12-13T15:06:50.470Z",
+  "blockNumber": null,
+  "transactionHash": "0xc3ce3d903c79c2438efd8e81380858ae51637fd4fb98253d4e5dbcbe861f2353",
+  "constructorArguments": [],
+  "purpose": "Test deployment"
+}

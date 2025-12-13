@@ -1,0 +1,21 @@
+{
+  "network": "Sepolia",
+  "contractName": "BRSCPPRewards",
+  "contractAddress": "0x48dFdbe91E5a0758A08573a9d2a0A452031BdDc6",
+  "deployer": "0x2786e48814C2E562A92aE53187b848DBB312d1a4",
+  "deploymentTime": "2025-12-13T15:05:13.335Z",
+  "blockNumber": null,
+  "transactionHash": "0xc543d338e5518bdace8f3eecb7b2cae305882a930d52bd90ee504c734c3d1694",
+  "constructorArguments": [],
+  "compiler": {
+    "version": "0.8.27",
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      }
+    }
+  },
+  "verified": true,
+  "verificationTime": "2025-12-13T15:05:44.865Z"
+}

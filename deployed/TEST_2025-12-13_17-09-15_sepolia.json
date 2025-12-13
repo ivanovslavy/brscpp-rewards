@@ -1,0 +1,72 @@
+{
+  "network": "sepolia",
+  "testName": "BRSCPPRewards Full Test Suite",
+  "startTime": "2025-12-13T15:06:39.973Z",
+  "tests": [
+    {
+      "name": "Claim before deadline should fail",
+      "status": "PASSED",
+      "expected": "Revert with 'Contest active'",
+      "actual": "execution reverted: Contest active"
+    },
+    {
+      "name": "Owner withdrawal before claim deadline should fail",
+      "status": "PASSED",
+      "expected": "Revert with 'Claim period active'",
+      "actual": "execution reverted: Claim period active"
+    },
+    {
+      "name": "Winners claim after deadline",
+      "status": "PASSED",
+      "expected": "Both winners receive funds",
+      "actual": "Technical: 0.1 ETH, Marketing: 0.1 ETH"
+    },
+    {
+      "name": "Double claim should fail",
+      "status": "PASSED",
+      "expected": "Revert with 'Already claimed'",
+      "actual": "execution reverted: Already claimed"
+    },
+    {
+      "name": "Non-winner claim should fail",
+      "status": "PASSED",
+      "expected": "Revert with 'Not winner'",
+      "actual": "execution reverted: Not winner"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "accounts": {
+    "owner": "0x2786e48814C2E562A92aE53187b848DBB312d1a4",
+    "technical": "0xc45112B334822811f4418e2f13C2C80FF790C949",
+    "marketing": "0x3A9Da2349caE432F46A04737d5F4c5EF9ef11973",
+    "other": "0x8eB8Bf106EbC9834a2586D04F73866C7436Ce298"
+  },
+  "contractAddress": "0x6EA8EC35a6B8c462636c310Bc65E93DdB75Fe866",
+  "deploymentTx": "0xc3ce3d903c79c2438efd8e81380858ae51637fd4fb98253d4e5dbcbe861f2353",
+  "configuration": {
+    "isNativeToken": true,
+    "tokenAddress": "0x0000000000000000000000000000000000000000",
+    "deadline": 1765638468,
+    "claimDeadline": 1768230468,
+    "waitTime": 60
+  },
+  "funding": {
+    "technicalAmount": "0.1 ETH",
+    "marketingAmount": "0.1 ETH",
+    "totalAmount": "0.2 ETH"
+  },
+  "winners": {
+    "technical": "0xc45112B334822811f4418e2f13C2C80FF790C949",
+    "marketing": "0x3A9Da2349caE432F46A04737d5F4c5EF9ef11973"
+  },
+  "endTime": "2025-12-13T15:09:15.828Z",
+  "timeline": {
+    "contestDeadline": 1765638468,
+    "claimDeadline": "1768230468",
+    "claimWindowDays": 30
+  }
+}
