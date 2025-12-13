@@ -1,7 +1,7 @@
 {
   "network": "sepolia",
   "testName": "BRSCPPRewards Full Test Suite",
-  "startTime": "2025-12-13T15:06:39.973Z",
+  "startTime": "2025-12-13T21:00:12.384Z",
   "tests": [
     {
       "name": "Claim before deadline should fail",
@@ -13,7 +13,7 @@
       "name": "Owner withdrawal before claim deadline should fail",
       "status": "PASSED",
       "expected": "Revert with 'Claim period active'",
-      "actual": "execution reverted: Claim period active"
+      "actual": "no matching fragment"
     },
     {
       "name": "Winners claim after deadline",
@@ -45,13 +45,13 @@
     "marketing": "0x3A9Da2349caE432F46A04737d5F4c5EF9ef11973",
     "other": "0x8eB8Bf106EbC9834a2586D04F73866C7436Ce298"
   },
-  "contractAddress": "0x6EA8EC35a6B8c462636c310Bc65E93DdB75Fe866",
-  "deploymentTx": "0xc3ce3d903c79c2438efd8e81380858ae51637fd4fb98253d4e5dbcbe861f2353",
+  "contractAddress": "0xF25896EF018F57507c21C34f69a8b4343E7dd7Aa",
+  "deploymentTx": "0xf2eaceb7d46199842cc04c7985e894157f47b38472492356cb5fab9e1e006666",
   "configuration": {
     "isNativeToken": true,
     "tokenAddress": "0x0000000000000000000000000000000000000000",
-    "deadline": 1765638468,
-    "claimDeadline": 1768230468,
+    "deadline": 1765659684,
+    "claimDeadline": 1768251684,
     "waitTime": 60
   },
   "funding": {
@@ -63,10 +63,10 @@
     "technical": "0xc45112B334822811f4418e2f13C2C80FF790C949",
     "marketing": "0x3A9Da2349caE432F46A04737d5F4c5EF9ef11973"
   },
-  "endTime": "2025-12-13T15:09:15.828Z",
+  "endTime": "2025-12-13T21:02:51.095Z",
   "timeline": {
-    "contestDeadline": 1765638468,
-    "claimDeadline": "1768230468",
+    "contestDeadline": 1765659684,
+    "claimDeadline": "1768251684",
     "claimWindowDays": 30
   }
 }
