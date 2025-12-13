@@ -1,8 +1,12 @@
+// package.json
 {
   "name": "brscpp-rewards",
   "version": "1.0.0",
   "description": "BRSCPP Bounty Reward System with Native/ERC20 Support",
   "scripts": {
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "node": "hardhat node",
     "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:bsc-testnet": "hardhat run scripts/deploy.js --network bscTestnet",
@@ -10,13 +14,19 @@
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
     "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
     "deploy:polygon": "hardhat run scripts/deploy.js --network polygon",
-    "test:rewards": "hardhat run scripts/test-rewards.js --network localhost",
+    "test:localhost": "hardhat run scripts/test-rewards.js --network localhost",
     "test:sepolia": "hardhat run scripts/test-rewards.js --network sepolia",
+    "test:bsc-testnet": "hardhat run scripts/test-rewards.js --network bscTestnet",
+    "test:amoy": "hardhat run scripts/test-rewards.js --network amoy",
+    "wallets:create": "hardhat run scripts/create-5-wallets.js",
+    "wallets:drain:sepolia": "hardhat run scripts/drain-wallets.js --network sepolia",
+    "wallets:drain:bsc-testnet": "hardhat run scripts/drain-wallets.js --network bscTestnet",
+    "wallets:drain:amoy": "hardhat run scripts/drain-wallets.js --network amoy",
+    "wallets:drain:mainnet": "hardhat run scripts/drain-wallets.js --network mainnet",
+    "wallets:drain:bsc": "hardhat run scripts/drain-wallets.js --network bsc",
+    "wallets:drain:polygon": "hardhat run scripts/drain-wallets.js --network polygon",
     "slither": "slither . --filter-paths 'node_modules|test' --exclude naming-convention,solc-version",
-    "slither:json": "slither . --filter-paths 'node_modules|test' --exclude naming-convention,solc-version --json deployed/slither-report-$(date +%Y-%m-%d_%H-%M-%S).json",
-    "node": "hardhat node",
-    "compile": "hardhat compile",
-    "clean": "hardhat clean"
+    "slither:json": "./scripts/run-slither.sh"
   },
   "keywords": [
     "ethereum",

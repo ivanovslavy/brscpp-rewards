@@ -46,9 +46,11 @@ temp/
 dist/
 build/
 
-# Optional: Keep deployment records structure but ignore specific files
+# Wallets (NEVER commit wallets!)
+wallets/
+
+# Deployment records (optional - uncomment to exclude)
 # deployed/*.json
-# !deployed/.gitkeep
 
 # Slither
 slither.db.json
