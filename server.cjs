@@ -22,7 +22,7 @@ const FROM_NAME = process.env.SMTP_FROM_NAME || 'GEMBA IT Studio';
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'contacts@gembait.com';
 
 const app = express();
-app.use(express.json({ limit: '32kb' }));
+app.use(express.json({ limit: '32kb', verify: (req, _res, buf) => { req.rawBody = buf; } }));
 app.set('trust proxy', 1);
 
 const transporter = nodemailer.createTransport({
@@ -80,6 +80,8 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'send' });
   }
 });
+
+require('./gembapay.cjs')(app, { appName: 'GembaWin', dataDir: __dirname, ownerAddress: '0x5578c75F22dE0bf1caA4BdD46BA28406C696a5dC' });
 
 app.use(express.static(DIST, { maxAge: '1h' }));
 app.get('*', (_req, res) => res.sendFile(path.join(DIST, 'index.html')));

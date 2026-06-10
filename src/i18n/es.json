@@ -144,7 +144,7 @@
     "setFeeTitle": "Fijar tarifa de creación",
     "setFeeHint": "La tarifa (en GMB) cobrada por crear un nuevo concurso.",
     "setFeeCta": "Fijar tarifa",
-    "feeInvalid": "Introduce una tarifa válida (0 o más).",
+    "feeInvalid": "Introduce un importe válido",
     "withdrawTitle": "Retirar tarifas recaudadas",
     "withdrawHint": "Envía las tarifas acumuladas a una dirección (por defecto, a ti).",
     "withdrawCta": "Retirar {{amount}} GMB",
@@ -152,7 +152,15 @@
     "pauseTitle": "Pausar / reanudar",
     "pauseHint": "En pausa no se pueden crear nuevos concursos. Los existentes no se ven afectados.",
     "pauseCta": "Pausar fábrica",
-    "unpauseCta": "Reanudar fábrica"
+    "unpauseCta": "Reanudar fábrica",
+    "feeTitle": "Tarifa de creación (GembaPay)",
+    "feeHint": "La tarifa fiat cobrada vía GembaPay para crear un contrato. Solo propietario.",
+    "feeCurrent": "Actual",
+    "feeNotConfigured": "Comercio GembaPay aún no configurado",
+    "feeCta": "Fijar tarifa",
+    "feeUpdated": "Tarifa actualizada",
+    "feeFailed": "Actualización fallida",
+    "connectFirst": "Conecta tu billetera"
   },
   "common": {
     "submitting": "Enviando…",
@@ -196,5 +204,16 @@
     "note": "Por billetera: 0.1 GMB y 10,000 de cada stablecoin cada 24h. Son activos de testnet sin valor.",
     "tokensTitle": "Direcciones de tokens de prueba",
     "addToWallet": "Añade estas direcciones a MetaMask para ver tus saldos de stablecoins de prueba."
+  },
+  "pay": {
+    "deploy": "Desplegar contrato",
+    "received": "Pago recibido",
+    "awaiting": "Esperando el pago…",
+    "awaitingHint": "Completa el pago en la pestaña de GembaPay. Esta página se actualiza automáticamente.",
+    "reopen": "Reabrir el pago",
+    "cancel": "Cancelar",
+    "failed": "El pago falló o fue cancelado.",
+    "retry": "Intentar de nuevo",
+    "payAndCreate": "Pagar {{fee}} y crear"
   }
 }

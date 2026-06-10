@@ -144,7 +144,7 @@
     "setFeeTitle": "Set create fee",
     "setFeeHint": "The fee (in GMB) charged to create a new contest.",
     "setFeeCta": "Set fee",
-    "feeInvalid": "Enter a valid fee (0 or more).",
+    "feeInvalid": "Enter a valid amount",
     "withdrawTitle": "Withdraw collected fees",
     "withdrawHint": "Send the accumulated create fees to an address (defaults to you).",
     "withdrawCta": "Withdraw {{amount}} GMB",
@@ -152,7 +152,15 @@
     "pauseTitle": "Pause / unpause",
     "pauseHint": "While paused, no new contests can be created. Existing contests are unaffected.",
     "pauseCta": "Pause factory",
-    "unpauseCta": "Unpause factory"
+    "unpauseCta": "Unpause factory",
+    "feeTitle": "GembaPay creation fee",
+    "feeHint": "The fiat fee charged via GembaPay to create a contract. Owner only.",
+    "feeCurrent": "Current",
+    "feeNotConfigured": "GembaPay merchant not configured yet",
+    "feeCta": "Set fee",
+    "feeUpdated": "Creation fee updated",
+    "feeFailed": "Update failed",
+    "connectFirst": "Connect your wallet"
   },
   "common": {
     "submitting": "Submitting…",
@@ -196,5 +204,16 @@
     "note": "Per wallet: 0.1 GMB and 10,000 of each stablecoin per 24h. These are valueless testnet assets.",
     "tokensTitle": "Test token addresses",
     "addToWallet": "Add these addresses to MetaMask to see your test stablecoin balances."
+  },
+  "pay": {
+    "deploy": "Deploy contract",
+    "received": "Payment received",
+    "awaiting": "Awaiting payment…",
+    "awaitingHint": "Complete the payment in the GembaPay tab. This page updates automatically.",
+    "reopen": "Reopen payment",
+    "cancel": "Cancel",
+    "failed": "Payment failed or cancelled.",
+    "retry": "Try again",
+    "payAndCreate": "Pay {{fee}} & create"
   }
 }

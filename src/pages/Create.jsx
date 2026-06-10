@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { NETWORK_CONFIG } from '../contracts/hardhat-config';
 import { ALL_TOKENS } from '../config/tokens';
+import { usePayment } from '../lib/usePayment';
+import PaymentGate from '../components/PaymentGate';
 
 function TxLink({ hash, label }) {
   return (
@@ -22,6 +24,7 @@ export default function Create({ factory }) {
 
   const [form, setForm] = useState({ name: '', token: 'GMB', deadlineDays: 7, positionCount: 1 });
   const [submitting, setSubmitting] = useState(false);
+  const payment = usePayment();
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   if (!isConnected) return <Prompt text={t('create.connectFirst')} />;
@@ -31,13 +34,16 @@ export default function Create({ factory }) {
   const deadlineDays = parseInt(form.deadlineDays, 10) || 0;
   const selected = ALL_TOKENS.find((x) => x.symbol === form.token) || ALL_TOKENS[0];
 
-  const submit = async (e) => {
-    e.preventDefault();
-    if (!factorySigner) return;
-    if (!form.name.trim()) return toast.error(t('create.errors.name'));
-    if (!(positionCount >= 1 && positionCount <= 50)) return toast.error(t('create.errors.positions'));
-    if (!(deadlineDays >= 1 && deadlineDays <= 365)) return toast.error(t('create.errors.deadline'));
+  const validate = () => {
+    if (!factorySigner) { toast.error(t('create.connectFirst')); return false; }
+    if (!form.name.trim()) { toast.error(t('create.errors.name')); return false; }
+    if (!(positionCount >= 1 && positionCount <= 50)) { toast.error(t('create.errors.positions')); return false; }
+    if (!(deadlineDays >= 1 && deadlineDays <= 365)) { toast.error(t('create.errors.deadline')); return false; }
+    return true;
+  };
 
+  const doDeploy = async () => {
+    if (!validate()) return;
     setSubmitting(true);
     const tid = toast.loading(t('create.submitting'));
     try {
@@ -66,7 +72,7 @@ export default function Create({ factory }) {
       <h1 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>{t('create.title')}</h1>
       <p className="mt-2 mb-7" style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('create.subtitle')}</p>
 
-      <form onSubmit={submit} className="card space-y-5">
+      <form onSubmit={(e) => e.preventDefault()} className="card space-y-5">
         <div>
           <label className="form-label">{t('create.name')}</label>
           <input className="form-input" value={form.name} onChange={set('name')} placeholder={t('create.namePlaceholder')} maxLength={80} />
@@ -106,9 +112,7 @@ export default function Create({ factory }) {
           <p className="text-xs mt-2" style={{ color: 'var(--text-tertiary)', lineHeight: 1.5 }}>{t('create.feeNote')}</p>
         </div>
 
-        <button type="submit" disabled={submitting} className="btn-flat primary w-full justify-center">
-          {submitting ? t('create.submitting') : t('create.cta')}
-        </button>
+        <PaymentGate payment={payment} validate={validate} onDeploy={doDeploy} deploying={submitting} deployLabel={t('create.cta')} />
         <p className="text-xs text-center" style={{ color: 'var(--text-tertiary)' }}>{t('create.ownerNote')}</p>
       </form>
     </div>

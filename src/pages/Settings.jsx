@@ -4,6 +4,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { parseEther } from 'ethers';
 import toast from 'react-hot-toast';
 import { NETWORK_CONFIG, CONTRACTS } from '../contracts/hardhat-config';
+import CreationFee from '../components/CreationFee';
 
 const shortAddr = (a) => (a ? `${a.slice(0, 6)}…${a.slice(-4)}` : '—');
 
@@ -80,6 +81,8 @@ export default function Settings({ factory }) {
             </a>} />
         </div>
       </div>
+
+      <CreationFee signer={factory.signer} />
 
       {/* set fee */}
       <div className="card mt-5 animate-fade-up delay-200">
