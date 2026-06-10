@@ -61,6 +61,9 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
     uint256 public activeContracts;
     bool public factoryPaused;
 
+    /// @notice Prize tokens accepted for ERC-20 contests (native GMB is always allowed).
+    mapping(address => bool) public supportedToken;
+
     // ========== EVENTS ==========
     event BountyCreated(uint256 indexed contractId, address indexed contractAddress, address indexed creator, string name, uint256 positionCount, uint256 deployFeePaid);
     event TemplateUpdated(address indexed oldTemplate, address indexed newTemplate);
@@ -70,6 +73,7 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
     event AdminAdded(address indexed admin, address indexed addedBy);
     event AdminRemoved(address indexed admin, address indexed removedBy);
     event ContractStatusUpdated(uint256 indexed contractId, bool isActive);
+    event TokenSupportUpdated(address indexed token, bool supported);
 
     // ========== MODIFIERS ==========
     modifier whenNotPaused() {
@@ -116,6 +120,7 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
     {
         require(msg.value >= deployFee, "Insufficient deploy fee");
         _validateParams(params);
+        if (!params.isNativeToken) require(supportedToken[params.tokenAddress], "Unsupported token");
 
         if (deployFee > 0) collectedFees += deployFee;
         uint256 excess = msg.value - deployFee;
@@ -191,6 +196,13 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
         uint256 old = deployFee;
         deployFee = _newFee;
         emit DeployFeeUpdated(old, _newFee);
+    }
+
+    /// @notice Allow/disallow an ERC-20 as a prize token (native GMB is always allowed).
+    function setSupportedToken(address token, bool supported) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(token != address(0), "Invalid token");
+        supportedToken[token] = supported;
+        emit TokenSupportUpdated(token, supported);
     }
 
     function withdrawFees(address _recipient) external onlyRole(DEFAULT_ADMIN_ROLE) nonReentrant {

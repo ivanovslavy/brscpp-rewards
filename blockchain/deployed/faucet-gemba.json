@@ -1,0 +1,14 @@
+{
+  "network": "GembaBlockchain Testnet",
+  "chainId": 821207,
+  "faucet": "0x2baE94C0463bcdcCD0120A33D90E7fB5b5449584",
+  "gmbDrip": "0.1",
+  "stableDrip": "10000",
+  "tokens": {
+    "USDT": "0x0821EAAE0328b02d6f85C36925acb92E90ef680C",
+    "USDC": "0x131f3087ecabA6f7ae91439DDaF70f4269D4b9Ef",
+    "EURC": "0x05003C73FfEC1c2f56021549501Dd7AD850e39C3"
+  },
+  "owner": "0x5578c75F22dE0bf1caA4BdD46BA28406C696a5dC",
+  "deployedAt": "2026-06-10T12:45:04.598Z"
+}

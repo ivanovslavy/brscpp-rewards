@@ -3,20 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { NETWORK_CONFIG } from '../contracts/hardhat-config';
+import { ALL_TOKENS } from '../config/tokens';
 
 function TxLink({ hash, label }) {
   return (
-    <span>
-      {label}{' '}
+    <span>{label}{' '}
       <a href={`${NETWORK_CONFIG.blockExplorer}/tx/${hash}`} target="_blank" rel="noopener noreferrer"
-        style={{ color: 'var(--color-primary)', textDecoration: 'underline' }}>
-        GembaScan
-      </a>
+        style={{ color: 'var(--color-primary)', textDecoration: 'underline' }}>GembaScan</a>
     </span>
   );
 }
-
-const ZERO = '0x0000000000000000000000000000000000000000';
 
 export default function Create({ factory }) {
   const { t } = useTranslation();
@@ -24,21 +20,16 @@ export default function Create({ factory }) {
   const navigate = useNavigate();
   const { factorySigner, isConnected, correctChain, stats } = factory;
 
-  const [form, setForm] = useState({ name: '', tokenType: 'native', tokenAddress: '', deadlineDays: 7, positionCount: 1 });
+  const [form, setForm] = useState({ name: '', token: 'GMB', deadlineDays: 7, positionCount: 1 });
   const [submitting, setSubmitting] = useState(false);
-
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  if (!isConnected) {
-    return <Prompt text={t('create.connectFirst')} />;
-  }
-  if (!correctChain) {
-    return <Prompt text={t('create.wrongNetwork', { name: NETWORK_CONFIG.chainName })} />;
-  }
+  if (!isConnected) return <Prompt text={t('create.connectFirst')} />;
+  if (!correctChain) return <Prompt text={t('create.wrongNetwork', { name: NETWORK_CONFIG.chainName })} />;
 
   const positionCount = parseInt(form.positionCount, 10) || 0;
   const deadlineDays = parseInt(form.deadlineDays, 10) || 0;
-  const isNative = form.tokenType === 'native';
+  const selected = ALL_TOKENS.find((x) => x.symbol === form.token) || ALL_TOKENS[0];
 
   const submit = async (e) => {
     e.preventDefault();
@@ -46,13 +37,17 @@ export default function Create({ factory }) {
     if (!form.name.trim()) return toast.error(t('create.errors.name'));
     if (!(positionCount >= 1 && positionCount <= 50)) return toast.error(t('create.errors.positions'));
     if (!(deadlineDays >= 1 && deadlineDays <= 365)) return toast.error(t('create.errors.deadline'));
-    const tokenAddress = isNative ? ZERO : form.tokenAddress.trim();
-    if (!isNative && !/^0x[a-fA-F0-9]{40}$/.test(tokenAddress)) return toast.error(t('create.errors.token'));
 
     setSubmitting(true);
     const tid = toast.loading(t('create.submitting'));
     try {
-      const params = { name: form.name.trim(), isNativeToken: isNative, tokenAddress, deadlineDays, positionCount };
+      const params = {
+        name: form.name.trim(),
+        isNativeToken: !!selected.isNative,
+        tokenAddress: selected.address,
+        deadlineDays,
+        positionCount,
+      };
       const tx = await factorySigner.createBounty(params, { value: stats?.deployFeeWei ?? 0n });
       toast.loading(t('create.confirming'), { id: tid });
       await tx.wait();
@@ -79,16 +74,17 @@ export default function Create({ factory }) {
 
         <div>
           <label className="form-label">{t('create.prize')}</label>
-          <div className="flex gap-2">
-            <button type="button" onClick={() => setForm((f) => ({ ...f, tokenType: 'native' }))}
-              className={isNative ? 'btn-flat primary' : 'btn-flat'} style={{ flex: 1 }}>GMB ({t('create.native')})</button>
-            <button type="button" onClick={() => setForm((f) => ({ ...f, tokenType: 'erc20' }))}
-              className={!isNative ? 'btn-flat primary' : 'btn-flat'} style={{ flex: 1 }}>ERC-20</button>
+          <div className="grid grid-cols-4 gap-2">
+            {ALL_TOKENS.map((tok) => (
+              <button key={tok.symbol} type="button" onClick={() => setForm((f) => ({ ...f, token: tok.symbol }))}
+                className={form.token === tok.symbol ? 'btn-flat primary' : 'btn-flat'} style={{ justifyContent: 'center' }}>
+                {tok.symbol}
+              </button>
+            ))}
           </div>
-          {!isNative && (
-            <input className="form-input mt-2" value={form.tokenAddress} onChange={set('tokenAddress')}
-              placeholder="0x… token address" spellCheck={false} />
-          )}
+          <p className="text-xs mt-1.5" style={{ color: 'var(--text-tertiary)' }}>
+            {selected.isNative ? t('create.nativeHint') : t('create.stableHint', { name: selected.name })}
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

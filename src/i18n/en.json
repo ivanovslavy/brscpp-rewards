@@ -5,14 +5,18 @@
       "description": "Create permissionless on-chain bounty & reward contests. Anyone can launch a contest with any number of prize positions, fund them in GMB or any ERC-20, name winners, and let them claim trustlessly. Built on GembaBlockchain Testnet by GEMBA IT."
     }
   },
-  "brand": { "name": "GembaWin", "by": "by GEMBA IT" },
+  "brand": {
+    "name": "GembaWin",
+    "by": "by GEMBA IT"
+  },
   "nav": {
     "home": "Home",
     "create": "Create",
     "contests": "Contests",
     "settings": "Settings",
     "backToGembait": "← gembait.com",
-    "contact": "Contact"
+    "contact": "Contact",
+    "faucet": "Faucet"
   },
   "wallet": {
     "connect": "Connect Wallet",
@@ -21,7 +25,11 @@
     "installPrompt": "No injected wallet found. Install MetaMask or use WalletConnect.",
     "wrongNetwork": "Wrong network — switch to {{name}}",
     "switchNetwork": "Switch network",
-    "role": { "owner": "Factory owner", "admin": "Admin", "user": "Connected" }
+    "role": {
+      "owner": "Factory owner",
+      "admin": "Admin",
+      "user": "Connected"
+    }
   },
   "home": {
     "title": "On-chain bounties & reward contests",
@@ -31,11 +39,25 @@
     "ctaCreate": "Create a contest",
     "ctaBrowse": "Browse contests",
     "features": {
-      "permissionless": { "title": "Permissionless", "body": "Anyone can launch a contest by paying a small factory fee — you become its sole owner. No approvals, no gatekeepers." },
-      "positions": { "title": "Any number of prizes", "body": "Define 1 to 50 prize positions, each with its own amount and winner. Not limited to fixed categories." },
-      "trustless": { "title": "Trustless payout", "body": "Funds live in the contest contract. Winners claim directly; unclaimed prizes return to the owner after the window. No middleman." }
+      "permissionless": {
+        "title": "Permissionless",
+        "body": "Anyone can launch a contest by paying a small factory fee — you become its sole owner. No approvals, no gatekeepers."
+      },
+      "positions": {
+        "title": "Any number of prizes",
+        "body": "Define 1 to 50 prize positions, each with its own amount and winner. Not limited to fixed categories."
+      },
+      "trustless": {
+        "title": "Trustless payout",
+        "body": "Funds live in the contest contract. Winners claim directly; unclaimed prizes return to the owner after the window. No middleman."
+      }
     },
-    "stats": { "total": "Total contests", "active": "Active", "completed": "Completed", "tvl": "Value locked" },
+    "stats": {
+      "total": "Total contests",
+      "active": "Active",
+      "completed": "Completed",
+      "tvl": "Value locked"
+    },
     "system": {
       "title": "Factory",
       "status": "Status",
@@ -72,11 +94,16 @@
       "positions": "Positions must be between 1 and 50.",
       "deadline": "Deadline must be between 1 and 365 days.",
       "token": "Enter a valid ERC-20 token address."
-    }
+    },
+    "nativeHint": "Prizes paid in native GMB.",
+    "stableHint": "Prizes paid in {{name}}."
   },
   "contests": {
     "title": "Contests",
-    "tab": { "all": "All", "mine": "Mine" },
+    "tab": {
+      "all": "All",
+      "mine": "Mine"
+    },
     "loading": "Loading contests…",
     "empty": "No contests yet. Be the first to create one.",
     "emptyMine": "You have not created or won any contest yet.",
@@ -85,7 +112,11 @@
     "funded": "Funded",
     "by": "by",
     "deadline": "deadline",
-    "phase": { "setup": "Setup", "claiming": "Claiming open", "ended": "Ended" },
+    "phase": {
+      "setup": "Setup",
+      "claiming": "Claiming open",
+      "ended": "Ended"
+    },
     "claimed": "Claimed",
     "winner": "Winner",
     "noWinner": "No winner set",
@@ -123,7 +154,12 @@
     "pauseCta": "Pause factory",
     "unpauseCta": "Unpause factory"
   },
-  "common": { "submitting": "Submitting…", "confirming": "Confirming…", "done": "Done —", "failed": "Transaction failed" },
+  "common": {
+    "submitting": "Submitting…",
+    "confirming": "Confirming…",
+    "done": "Done —",
+    "failed": "Transaction failed"
+  },
   "tx": {
     "pending": "Waiting for wallet confirmation…",
     "processing": "Submitted — waiting for confirmation…",
@@ -131,7 +167,10 @@
     "failed": "Transaction failed",
     "explorer": "View on explorer →"
   },
-  "footer": { "by": "by GEMBA IT", "rights": "All rights reserved" },
+  "footer": {
+    "by": "by GEMBA IT",
+    "rights": "All rights reserved"
+  },
   "contact": {
     "title": "Contact",
     "subtitle": "Questions about GembaWin, launching a contest or an integration? Send a message — it reaches the GEMBA IT team.",
@@ -144,5 +183,18 @@
     "ok": "Thank you — your message was sent. We’ll reply soon.",
     "err": "Something went wrong. Please complete the check and try again.",
     "captcha": "Please complete the verification."
+  },
+  "faucet": {
+    "title": "Faucet",
+    "subtitle": "Get free testnet GMB and stablecoins (USDT/USDC/EURC) to try GembaBlockchain and its dApps. One claim per asset every 24 hours.",
+    "claim": "Claim",
+    "claimed": "Claimed {{sym}} —",
+    "failed": "Claim failed",
+    "availableIn": "in ~{{h}}h",
+    "connectFirst": "Connect your wallet to claim.",
+    "wrongNetwork": "Switch your wallet to {{name}}.",
+    "note": "Per wallet: 0.1 GMB and 10,000 of each stablecoin per 24h. These are valueless testnet assets.",
+    "tokensTitle": "Test token addresses",
+    "addToWallet": "Add these addresses to MetaMask to see your test stablecoin balances."
   }
 }

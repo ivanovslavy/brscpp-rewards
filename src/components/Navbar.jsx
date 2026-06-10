@@ -45,6 +45,7 @@ export default function Navbar({ role, showAdmin }) {
     { to: `/${lang}`, label: t('nav.home') },
     { to: `/${lang}/create`, label: t('nav.create') },
     { to: `/${lang}/contests`, label: t('nav.contests') },
+    { to: `/${lang}/faucet`, label: t('nav.faucet') },
     { to: `/${lang}/contact`, label: t('nav.contact') },
     { to: `/${lang}/settings`, label: t('nav.settings'), hide: !showAdmin },
   ].filter(l => !l.hide);

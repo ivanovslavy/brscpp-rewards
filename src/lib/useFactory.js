@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
-import { Contract, formatEther } from 'ethers';
+import { Contract, formatEther, formatUnits } from 'ethers';
 import { useAccount, useChainId } from 'wagmi';
 import { useEthersSigner, useEthersProvider } from './ethersAdapter';
 import { CONTRACTS, FACTORY_ABI, CONTEST_ABI } from '../contracts/hardhat-config';
 import { DEFAULT_CHAIN } from '../config/wagmi';
+import { tokenFor } from '../config/tokens';
 
 // Drives the GembaWinFactory + the per-contest GembaWin clones.
 export function useFactory() {
@@ -76,6 +77,7 @@ export function useFactory() {
       const list = await Promise.all(latest.map(async (c) => {
         let funded = false;
         let positions = [];
+        const token = tokenFor(c.isNativeToken, c.tokenAddress);
         try {
           const contest = new Contract(c.contractAddress, CONTEST_ABI, provider);
           const info = await contest.getContestInfo();
@@ -83,7 +85,7 @@ export function useFactory() {
           const all = await contest.getAllPositions();
           positions = all[0].map((amt, i) => ({
             index: i,
-            amount: formatEther(amt),
+            amount: formatUnits(amt, token.decimals),
             amountWei: amt,
             winner: all[1][i],
             claimed: all[2][i],
@@ -98,6 +100,7 @@ export function useFactory() {
           name: c.name,
           isNativeToken: c.isNativeToken,
           tokenAddress: c.tokenAddress,
+          token,
           deadline,
           claimDeadline,
           positionCount: Number(c.positionCount),

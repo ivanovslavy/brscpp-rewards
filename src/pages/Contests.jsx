@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Contract, parseEther } from 'ethers';
+import { Contract, parseUnits } from 'ethers';
 import toast from 'react-hot-toast';
 import { CONTEST_ABI, NETWORK_CONFIG } from '../contracts/hardhat-config';
 
@@ -74,7 +74,7 @@ export default function Contests({ factory }) {
 
 function ContestCard({ c, t, onOpen }) {
   const total = c.positions.reduce((s, p) => s + parseFloat(p.amount || '0'), 0);
-  const sym = c.isNativeToken ? 'GMB' : 'ERC-20';
+  const sym = c.token?.symbol || (c.isNativeToken ? 'GMB' : 'ERC-20');
   return (
     <button onClick={onOpen} className="card text-left cursor-pointer hover:shadow-md transition-shadow" style={{ display: 'block', width: '100%' }}>
       <div className="flex items-start justify-between gap-3">
@@ -100,7 +100,7 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
 
   const isOwner = eqAddr(c.creator, address);
   const contestW = signer ? new Contract(c.address, CONTEST_ABI, signer) : null;
-  const sym = c.isNativeToken ? 'GMB' : 'tokens';
+  const sym = c.token?.symbol || 'tokens';
 
   const run = async (key, fn) => {
     if (!contestW) return toast.error(t('contests.connectFirst'));
@@ -119,7 +119,7 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
   };
 
   const onDeposit = async () => {
-    const wei = amounts.map((a) => { try { return parseEther(String(a || '0')); } catch { return -1n; } });
+    const wei = amounts.map((a) => { try { return parseUnits(String(a || '0'), c.token.decimals); } catch { return -1n; } });
     if (wei.some((w) => w <= 0n)) return toast.error(t('contests.amountsInvalid'));
     const total = wei.reduce((s, w) => s + w, 0n);
     if (c.isNativeToken) {
@@ -155,7 +155,7 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
         <div className="flex items-center gap-2 mb-4 text-xs" style={{ color: 'var(--text-tertiary)' }}>
           <span className="status-pill" style={PHASE_STYLE[c.phase]}>{t(`contests.phase.${c.phase}`)}</span>
           <a href={`${NETWORK_CONFIG.blockExplorer}/address/${c.address}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>{shortAddr(c.address)}</a>
-          <span>· {c.isNativeToken ? 'GMB' : `ERC-20 ${shortAddr(c.tokenAddress)}`}</span>
+          <span>· {c.token?.symbol || 'GMB'}{!c.isNativeToken ? ` (${shortAddr(c.tokenAddress)})` : ''}</span>
         </div>
 
         {/* positions */}
@@ -167,7 +167,7 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
             return (
               <div key={i} className="rounded-lg p-3" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold">#{i} · {p.amount} {c.isNativeToken ? 'GMB' : ''}</span>
+                  <span className="text-sm font-semibold">#{i} · {p.amount} {c.token?.symbol || ''}</span>
                   {p.claimed ? <span className="status-pill" style={{ color: 'var(--text-tertiary)' }}>{t('contests.claimed')}</span>
                     : p.winner !== '0x0000000000000000000000000000000000000000'
                       ? <span className="text-xs" style={{ color: isWinner ? '#16A34A' : 'var(--text-secondary)' }}>{t('contests.winner')}: {shortAddr(p.winner)}</span>

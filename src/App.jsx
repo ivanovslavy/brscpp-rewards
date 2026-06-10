@@ -9,6 +9,7 @@ import Create from './pages/Create';
 import Contests from './pages/Contests';
 import Settings from './pages/Settings';
 import Contact from './pages/Contact';
+import Faucet from './pages/Faucet';
 import { useFactory } from './lib/useFactory';
 
 function LangWrapper({ children }) {

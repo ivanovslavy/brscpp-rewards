@@ -5,14 +5,18 @@
       "description": "Crea concursos de recompensas on-chain sin permisos. Cualquiera puede lanzar un concurso con cualquier número de posiciones de premio, financiarlas en GMB o cualquier ERC-20, nombrar ganadores y que reclamen sin confianza. Construido en GembaBlockchain Testnet por GEMBA IT."
     }
   },
-  "brand": { "name": "GembaWin", "by": "por GEMBA IT" },
+  "brand": {
+    "name": "GembaWin",
+    "by": "por GEMBA IT"
+  },
   "nav": {
     "home": "Inicio",
     "create": "Crear",
     "contests": "Concursos",
     "settings": "Ajustes",
     "backToGembait": "← gembait.com",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "faucet": "Faucet"
   },
   "wallet": {
     "connect": "Conectar billetera",
@@ -21,7 +25,11 @@
     "installPrompt": "No se encontró billetera. Instala MetaMask o usa WalletConnect.",
     "wrongNetwork": "Red incorrecta — cambia a {{name}}",
     "switchNetwork": "Cambiar de red",
-    "role": { "owner": "Propietario de la fábrica", "admin": "Admin", "user": "Conectado" }
+    "role": {
+      "owner": "Propietario de la fábrica",
+      "admin": "Admin",
+      "user": "Conectado"
+    }
   },
   "home": {
     "title": "Recompensas y concursos on-chain",
@@ -31,11 +39,25 @@
     "ctaCreate": "Crear un concurso",
     "ctaBrowse": "Ver concursos",
     "features": {
-      "permissionless": { "title": "Sin permisos", "body": "Cualquiera puede lanzar un concurso pagando una pequeña tarifa a la fábrica — te conviertes en su único propietario. Sin aprobaciones." },
-      "positions": { "title": "Cualquier número de premios", "body": "Define de 1 a 50 posiciones de premio, cada una con su importe y ganador. Sin categorías fijas." },
-      "trustless": { "title": "Pago sin confianza", "body": "Los fondos viven en el contrato del concurso. Los ganadores reclaman directamente; los premios no reclamados vuelven al propietario tras el plazo." }
+      "permissionless": {
+        "title": "Sin permisos",
+        "body": "Cualquiera puede lanzar un concurso pagando una pequeña tarifa a la fábrica — te conviertes en su único propietario. Sin aprobaciones."
+      },
+      "positions": {
+        "title": "Cualquier número de premios",
+        "body": "Define de 1 a 50 posiciones de premio, cada una con su importe y ganador. Sin categorías fijas."
+      },
+      "trustless": {
+        "title": "Pago sin confianza",
+        "body": "Los fondos viven en el contrato del concurso. Los ganadores reclaman directamente; los premios no reclamados vuelven al propietario tras el plazo."
+      }
     },
-    "stats": { "total": "Total concursos", "active": "Activos", "completed": "Completados", "tvl": "Valor bloqueado" },
+    "stats": {
+      "total": "Total concursos",
+      "active": "Activos",
+      "completed": "Completados",
+      "tvl": "Valor bloqueado"
+    },
     "system": {
       "title": "Fábrica",
       "status": "Estado",
@@ -72,11 +94,16 @@
       "positions": "Las posiciones deben estar entre 1 y 50.",
       "deadline": "El plazo debe estar entre 1 y 365 días.",
       "token": "Introduce una dirección de token ERC-20 válida."
-    }
+    },
+    "nativeHint": "Premios pagados en GMB nativo.",
+    "stableHint": "Premios pagados en {{name}}."
   },
   "contests": {
     "title": "Concursos",
-    "tab": { "all": "Todos", "mine": "Míos" },
+    "tab": {
+      "all": "Todos",
+      "mine": "Míos"
+    },
     "loading": "Cargando concursos…",
     "empty": "Aún no hay concursos. Sé el primero en crear uno.",
     "emptyMine": "Aún no has creado ni ganado ningún concurso.",
@@ -85,7 +112,11 @@
     "funded": "Financiado",
     "by": "por",
     "deadline": "plazo",
-    "phase": { "setup": "Preparación", "claiming": "Reclamación abierta", "ended": "Finalizado" },
+    "phase": {
+      "setup": "Preparación",
+      "claiming": "Reclamación abierta",
+      "ended": "Finalizado"
+    },
     "claimed": "Reclamado",
     "winner": "Ganador",
     "noWinner": "Sin ganador",
@@ -123,7 +154,12 @@
     "pauseCta": "Pausar fábrica",
     "unpauseCta": "Reanudar fábrica"
   },
-  "common": { "submitting": "Enviando…", "confirming": "Confirmando…", "done": "Hecho —", "failed": "Transacción fallida" },
+  "common": {
+    "submitting": "Enviando…",
+    "confirming": "Confirmando…",
+    "done": "Hecho —",
+    "failed": "Transacción fallida"
+  },
   "tx": {
     "pending": "Esperando confirmación de la billetera…",
     "processing": "Enviado — esperando confirmación…",
@@ -131,7 +167,10 @@
     "failed": "Transacción fallida",
     "explorer": "Ver en el explorador →"
   },
-  "footer": { "by": "por GEMBA IT", "rights": "Todos los derechos reservados" },
+  "footer": {
+    "by": "por GEMBA IT",
+    "rights": "Todos los derechos reservados"
+  },
   "contact": {
     "title": "Contacto",
     "subtitle": "¿Preguntas sobre GembaWin, lanzar un concurso o una integración? Envía un mensaje — llega al equipo de GEMBA IT.",
@@ -144,5 +183,18 @@
     "ok": "Gracias — tu mensaje fue enviado. Responderemos pronto.",
     "err": "Algo salió mal. Completa la verificación e inténtalo de nuevo.",
     "captcha": "Por favor completa la verificación."
+  },
+  "faucet": {
+    "title": "Faucet",
+    "subtitle": "Obtén GMB y stablecoins de testnet (USDT/USDC/EURC) gratis para probar GembaBlockchain y sus dApps. Un reclamo por activo cada 24 horas.",
+    "claim": "Reclamar",
+    "claimed": "Reclamado {{sym}} —",
+    "failed": "Reclamo fallido",
+    "availableIn": "en ~{{h}}h",
+    "connectFirst": "Conecta tu billetera para reclamar.",
+    "wrongNetwork": "Cambia tu billetera a {{name}}.",
+    "note": "Por billetera: 0.1 GMB y 10,000 de cada stablecoin cada 24h. Son activos de testnet sin valor.",
+    "tokensTitle": "Direcciones de tokens de prueba",
+    "addToWallet": "Añade estas direcciones a MetaMask para ver tus saldos de stablecoins de prueba."
   }
 }
