@@ -1,0 +1,148 @@
+{
+  "seo": {
+    "home": {
+      "title": "Home",
+      "description": "Create permissionless on-chain bounty & reward contests. Anyone can launch a contest with any number of prize positions, fund them in GMB or any ERC-20, name winners, and let them claim trustlessly. Built on GembaBlockchain Testnet by GEMBA IT."
+    }
+  },
+  "brand": { "name": "GembaWin", "by": "by GEMBA IT" },
+  "nav": {
+    "home": "Home",
+    "create": "Create",
+    "contests": "Contests",
+    "settings": "Settings",
+    "backToGembait": "← gembait.com",
+    "contact": "Contact"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "connecting": "Connecting…",
+    "disconnect": "Disconnect",
+    "installPrompt": "No injected wallet found. Install MetaMask or use WalletConnect.",
+    "wrongNetwork": "Wrong network — switch to {{name}}",
+    "switchNetwork": "Switch network",
+    "role": { "owner": "Factory owner", "admin": "Admin", "user": "Connected" }
+  },
+  "home": {
+    "title": "On-chain bounties & reward contests",
+    "titleIn": "Dashboard",
+    "subtitle": "Launch a contest, fund any number of prize positions in GMB or an ERC-20, name your winners — they claim trustlessly. Permissionless on GembaBlockchain testnet.",
+    "getStarted": "Connect your wallet to create or claim",
+    "ctaCreate": "Create a contest",
+    "ctaBrowse": "Browse contests",
+    "features": {
+      "permissionless": { "title": "Permissionless", "body": "Anyone can launch a contest by paying a small factory fee — you become its sole owner. No approvals, no gatekeepers." },
+      "positions": { "title": "Any number of prizes", "body": "Define 1 to 50 prize positions, each with its own amount and winner. Not limited to fixed categories." },
+      "trustless": { "title": "Trustless payout", "body": "Funds live in the contest contract. Winners claim directly; unclaimed prizes return to the owner after the window. No middleman." }
+    },
+    "stats": { "total": "Total contests", "active": "Active", "completed": "Completed", "tvl": "Value locked" },
+    "system": {
+      "title": "Factory",
+      "status": "Status",
+      "active": "Live",
+      "paused": "Paused",
+      "deployFee": "Create fee",
+      "tvl": "Total value locked"
+    },
+    "loading": "Loading…"
+  },
+  "create": {
+    "title": "Create a contest",
+    "subtitle": "Configure your bounty. You will be its owner — fund the positions and name winners afterwards.",
+    "name": "Contest name",
+    "namePlaceholder": "e.g. Hackathon Prizes Q3",
+    "prize": "Prize asset",
+    "native": "native",
+    "positions": "Prize positions",
+    "positionsHint": "1–50 positions",
+    "deadlineDays": "Deadline (days)",
+    "deadlineHint": "1–365 days to name winners",
+    "deployFee": "Create fee",
+    "feeNote": "Paid once to the factory to deploy your contest contract. Prize funds are deposited separately, in the next step.",
+    "cta": "Create contest",
+    "submitting": "Creating…",
+    "confirming": "Confirming…",
+    "success": "Contest created —",
+    "failed": "Creation failed",
+    "connectFirst": "Connect your wallet to create a contest.",
+    "wrongNetwork": "Switch your wallet to {{name}} to continue.",
+    "ownerNote": "You become the owner of this contest and fund it next.",
+    "errors": {
+      "name": "Enter a contest name.",
+      "positions": "Positions must be between 1 and 50.",
+      "deadline": "Deadline must be between 1 and 365 days.",
+      "token": "Enter a valid ERC-20 token address."
+    }
+  },
+  "contests": {
+    "title": "Contests",
+    "tab": { "all": "All", "mine": "Mine" },
+    "loading": "Loading contests…",
+    "empty": "No contests yet. Be the first to create one.",
+    "emptyMine": "You have not created or won any contest yet.",
+    "positions": "Positions",
+    "prizePool": "Prize pool",
+    "funded": "Funded",
+    "by": "by",
+    "deadline": "deadline",
+    "phase": { "setup": "Setup", "claiming": "Claiming open", "ended": "Ended" },
+    "claimed": "Claimed",
+    "winner": "Winner",
+    "noWinner": "No winner set",
+    "setWinner": "Set",
+    "claim": "Claim prize",
+    "withdraw": "Withdraw unclaimed",
+    "fundTitle": "Fund the prize positions",
+    "fundHint": "Enter the amount for each position in {{sym}}. This deposits all positions at once.",
+    "fundCta": "Deposit prize funds",
+    "amountsInvalid": "Every position needs an amount greater than 0.",
+    "addrInvalid": "Enter a valid address.",
+    "approving": "Approving token…",
+    "connectFirst": "Connect your wallet first.",
+    "connectToAct": "Connect your wallet to fund, set winners or claim."
+  },
+  "settings": {
+    "title": "Factory settings",
+    "subtitle": "Owner-only controls for the GembaWin factory.",
+    "status": "Factory status",
+    "paused": "Paused",
+    "live": "Live",
+    "currentFee": "Current create fee",
+    "collected": "Collected fees",
+    "factory": "Factory contract",
+    "setFeeTitle": "Set create fee",
+    "setFeeHint": "The fee (in GMB) charged to create a new contest.",
+    "setFeeCta": "Set fee",
+    "feeInvalid": "Enter a valid fee (0 or more).",
+    "withdrawTitle": "Withdraw collected fees",
+    "withdrawHint": "Send the accumulated create fees to an address (defaults to you).",
+    "withdrawCta": "Withdraw {{amount}} GMB",
+    "recipientInvalid": "Enter a valid recipient address.",
+    "pauseTitle": "Pause / unpause",
+    "pauseHint": "While paused, no new contests can be created. Existing contests are unaffected.",
+    "pauseCta": "Pause factory",
+    "unpauseCta": "Unpause factory"
+  },
+  "common": { "submitting": "Submitting…", "confirming": "Confirming…", "done": "Done —", "failed": "Transaction failed" },
+  "tx": {
+    "pending": "Waiting for wallet confirmation…",
+    "processing": "Submitted — waiting for confirmation…",
+    "success": "Transaction confirmed",
+    "failed": "Transaction failed",
+    "explorer": "View on explorer →"
+  },
+  "footer": { "by": "by GEMBA IT", "rights": "All rights reserved" },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Questions about GembaWin, launching a contest or an integration? Send a message — it reaches the GEMBA IT team.",
+    "name": "Your name",
+    "email": "Your email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "ok": "Thank you — your message was sent. We’ll reply soon.",
+    "err": "Something went wrong. Please complete the check and try again.",
+    "captcha": "Please complete the verification."
+  }
+}

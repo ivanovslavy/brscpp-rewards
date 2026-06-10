@@ -25,7 +25,13 @@ module.exports = {
       url: "http://127.0.0.1:8545",
       accounts: accounts.length > 0 ? accounts : undefined
     },
-    
+
+    gemba: {
+      url: process.env.GEMBA_RPC_URL || "https://testnet.gembascan.io/rpc",
+      accounts: accounts,
+      chainId: 821207
+    },
+
     sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
       accounts: accounts,
@@ -64,7 +70,14 @@ module.exports = {
   },
   
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY || ""
+    apiKey: { gemba: "gemba" },
+    customChains: [
+      {
+        network: "gemba",
+        chainId: 821207,
+        urls: { apiURL: "https://testnet.gembascan.io/api", browserURL: "https://testnet.gembascan.io" },
+      },
+    ],
   },
   
   sourcify: {

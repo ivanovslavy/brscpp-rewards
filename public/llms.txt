@@ -1,0 +1,40 @@
+# GembaEscrow
+
+> Smart-contract escrow for real estate and high-value asset transactions. Non-custodial, multi-party approval, timeout refunds. Part of the GEMBA IT ecosystem.
+
+GembaEscrow removes the trusted-third-party from real estate deposits and deal completion. Buyer, seller, and (optional) agent/notary each approve critical steps on-chain. Funds auto-release on consensus, or refund to the buyer on timeout. No escrow company takes a cut — only base network gas applies.
+
+## URLs
+
+- Home: https://escrow.gembait.com/en
+
+Languages: English (en), Bulgarian (bg), Spanish (es). Replace `/en` with `/bg` or `/es`.
+
+## Quick facts
+
+- Network: GembaBlockchain Testnet testnet (chain ID 11155111)
+- Model: Non-custodial — no custodian or platform holds funds in trust
+- Parties: Buyer, seller, agent/notary (optional)
+- Fee model: Base network gas only — no platform cut on escrowed funds
+- Timeout behavior: If the deadline passes without multi-party approval, the buyer reclaims the full deposit
+- Status: Testnet demonstration; mainnet deployment on request
+
+## Typical flow
+
+1. Buyer, seller, and (optional) notary are defined in a new deal on-chain
+2. Buyer deposits funds into the escrow contract
+3. Notary verifies off-chain documents, then signals on-chain approval
+4. On multi-party approval, contract atomically splits funds to seller, agent, and notary
+5. If the deadline elapses without approval, buyer calls refund() and reclaims the deposit
+
+## Technology
+
+- Frontend: React, Vite, Tailwind CSS, i18next (en/bg/es)
+- Web3: ethers.js, wagmi, viem
+- Contracts: Solidity 0.8.x on GembaBlockchain, OpenZeppelin primitives, ReentrancyGuard
+
+## Built by
+
+GEMBA IT — https://gembait.com
+Parent company: GEMBA EOOD (Varna, Bulgaria)
+Contact: contacts@gembait.com

@@ -1,67 +1,17 @@
-# .gitignore
-
-# Dependencies
+# dependencies & build output
 node_modules/
-package-lock.json
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Hardhat files
-cache/
-artifacts/
-typechain-types/
-
-# Coverage
-coverage/
-coverage.json
-
-# Gas reports
-gas-report.txt
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Temporary files
-tmp/
-temp/
-
-# Build outputs
 dist/
-build/
+blockchain/node_modules/
+blockchain/artifacts/
+blockchain/cache/
 
-# Wallets (NEVER commit wallets!)
-wallets/
-
-# Deployment records (optional - uncomment to exclude)
-# deployed/*.json
-
-# Slither
-slither.db.json
+# secrets — never commit
+.env
 .env.*
-!.env.example
 *.key
-*.pem
 *mnemonic*
-keyring*
-.claude/
-CLAUDE.md
-claude.md
-progress.md
-PROGRESS.md
+keystore/
+
+# misc
+.DS_Store
+*.log

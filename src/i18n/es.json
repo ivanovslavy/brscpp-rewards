@@ -1,0 +1,148 @@
+{
+  "seo": {
+    "home": {
+      "title": "Inicio",
+      "description": "Crea concursos de recompensas on-chain sin permisos. Cualquiera puede lanzar un concurso con cualquier número de posiciones de premio, financiarlas en GMB o cualquier ERC-20, nombrar ganadores y que reclamen sin confianza. Construido en GembaBlockchain Testnet por GEMBA IT."
+    }
+  },
+  "brand": { "name": "GembaWin", "by": "por GEMBA IT" },
+  "nav": {
+    "home": "Inicio",
+    "create": "Crear",
+    "contests": "Concursos",
+    "settings": "Ajustes",
+    "backToGembait": "← gembait.com",
+    "contact": "Contacto"
+  },
+  "wallet": {
+    "connect": "Conectar billetera",
+    "connecting": "Conectando…",
+    "disconnect": "Desconectar",
+    "installPrompt": "No se encontró billetera. Instala MetaMask o usa WalletConnect.",
+    "wrongNetwork": "Red incorrecta — cambia a {{name}}",
+    "switchNetwork": "Cambiar de red",
+    "role": { "owner": "Propietario de la fábrica", "admin": "Admin", "user": "Conectado" }
+  },
+  "home": {
+    "title": "Recompensas y concursos on-chain",
+    "titleIn": "Panel",
+    "subtitle": "Lanza un concurso, financia cualquier número de posiciones de premio en GMB o un ERC-20, nombra a tus ganadores — ellos reclaman sin confianza. Sin permisos en GembaBlockchain testnet.",
+    "getStarted": "Conecta tu billetera para crear o reclamar",
+    "ctaCreate": "Crear un concurso",
+    "ctaBrowse": "Ver concursos",
+    "features": {
+      "permissionless": { "title": "Sin permisos", "body": "Cualquiera puede lanzar un concurso pagando una pequeña tarifa a la fábrica — te conviertes en su único propietario. Sin aprobaciones." },
+      "positions": { "title": "Cualquier número de premios", "body": "Define de 1 a 50 posiciones de premio, cada una con su importe y ganador. Sin categorías fijas." },
+      "trustless": { "title": "Pago sin confianza", "body": "Los fondos viven en el contrato del concurso. Los ganadores reclaman directamente; los premios no reclamados vuelven al propietario tras el plazo." }
+    },
+    "stats": { "total": "Total concursos", "active": "Activos", "completed": "Completados", "tvl": "Valor bloqueado" },
+    "system": {
+      "title": "Fábrica",
+      "status": "Estado",
+      "active": "Activa",
+      "paused": "En pausa",
+      "deployFee": "Tarifa de creación",
+      "tvl": "Valor total bloqueado"
+    },
+    "loading": "Cargando…"
+  },
+  "create": {
+    "title": "Crear un concurso",
+    "subtitle": "Configura tu recompensa. Serás su propietario — financias las posiciones y nombras ganadores después.",
+    "name": "Nombre del concurso",
+    "namePlaceholder": "p. ej. Premios Hackathon Q3",
+    "prize": "Activo del premio",
+    "native": "nativo",
+    "positions": "Posiciones de premio",
+    "positionsHint": "1–50 posiciones",
+    "deadlineDays": "Plazo (días)",
+    "deadlineHint": "1–365 días para nombrar ganadores",
+    "deployFee": "Tarifa de creación",
+    "feeNote": "Se paga una vez a la fábrica para desplegar el contrato del concurso. Los fondos del premio se depositan aparte, en el siguiente paso.",
+    "cta": "Crear concurso",
+    "submitting": "Creando…",
+    "confirming": "Confirmando…",
+    "success": "Concurso creado —",
+    "failed": "Creación fallida",
+    "connectFirst": "Conecta tu billetera para crear un concurso.",
+    "wrongNetwork": "Cambia tu billetera a {{name}} para continuar.",
+    "ownerNote": "Te conviertes en propietario de este concurso y lo financias a continuación.",
+    "errors": {
+      "name": "Introduce un nombre de concurso.",
+      "positions": "Las posiciones deben estar entre 1 y 50.",
+      "deadline": "El plazo debe estar entre 1 y 365 días.",
+      "token": "Introduce una dirección de token ERC-20 válida."
+    }
+  },
+  "contests": {
+    "title": "Concursos",
+    "tab": { "all": "Todos", "mine": "Míos" },
+    "loading": "Cargando concursos…",
+    "empty": "Aún no hay concursos. Sé el primero en crear uno.",
+    "emptyMine": "Aún no has creado ni ganado ningún concurso.",
+    "positions": "Posiciones",
+    "prizePool": "Bote de premios",
+    "funded": "Financiado",
+    "by": "por",
+    "deadline": "plazo",
+    "phase": { "setup": "Preparación", "claiming": "Reclamación abierta", "ended": "Finalizado" },
+    "claimed": "Reclamado",
+    "winner": "Ganador",
+    "noWinner": "Sin ganador",
+    "setWinner": "Fijar",
+    "claim": "Reclamar premio",
+    "withdraw": "Retirar no reclamado",
+    "fundTitle": "Financia las posiciones de premio",
+    "fundHint": "Introduce el importe de cada posición en {{sym}}. Deposita todas las posiciones a la vez.",
+    "fundCta": "Depositar premios",
+    "amountsInvalid": "Cada posición necesita un importe mayor que 0.",
+    "addrInvalid": "Introduce una dirección válida.",
+    "approving": "Aprobando token…",
+    "connectFirst": "Primero conecta tu billetera.",
+    "connectToAct": "Conecta tu billetera para financiar, fijar ganadores o reclamar."
+  },
+  "settings": {
+    "title": "Ajustes de la fábrica",
+    "subtitle": "Controles solo para el propietario de la fábrica GembaWin.",
+    "status": "Estado de la fábrica",
+    "paused": "En pausa",
+    "live": "Activa",
+    "currentFee": "Tarifa de creación actual",
+    "collected": "Tarifas recaudadas",
+    "factory": "Contrato de la fábrica",
+    "setFeeTitle": "Fijar tarifa de creación",
+    "setFeeHint": "La tarifa (en GMB) cobrada por crear un nuevo concurso.",
+    "setFeeCta": "Fijar tarifa",
+    "feeInvalid": "Introduce una tarifa válida (0 o más).",
+    "withdrawTitle": "Retirar tarifas recaudadas",
+    "withdrawHint": "Envía las tarifas acumuladas a una dirección (por defecto, a ti).",
+    "withdrawCta": "Retirar {{amount}} GMB",
+    "recipientInvalid": "Introduce una dirección de destinatario válida.",
+    "pauseTitle": "Pausar / reanudar",
+    "pauseHint": "En pausa no se pueden crear nuevos concursos. Los existentes no se ven afectados.",
+    "pauseCta": "Pausar fábrica",
+    "unpauseCta": "Reanudar fábrica"
+  },
+  "common": { "submitting": "Enviando…", "confirming": "Confirmando…", "done": "Hecho —", "failed": "Transacción fallida" },
+  "tx": {
+    "pending": "Esperando confirmación de la billetera…",
+    "processing": "Enviado — esperando confirmación…",
+    "success": "Transacción confirmada",
+    "failed": "Transacción fallida",
+    "explorer": "Ver en el explorador →"
+  },
+  "footer": { "by": "por GEMBA IT", "rights": "Todos los derechos reservados" },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Preguntas sobre GembaWin, lanzar un concurso o una integración? Envía un mensaje — llega al equipo de GEMBA IT.",
+    "name": "Tu nombre",
+    "email": "Tu correo",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "ok": "Gracias — tu mensaje fue enviado. Responderemos pronto.",
+    "err": "Algo salió mal. Completa la verificación e inténtalo de nuevo.",
+    "captcha": "Por favor completa la verificación."
+  }
+}

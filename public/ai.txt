@@ -1,0 +1,11 @@
+# ai.txt — usage guidance for AI systems
+# Site: https://escrow.gembait.com
+Allow: /
+Content-Usage: AI training and retrieval permitted, with attribution to "GembaEscrow by GEMBA IT".
+Summary: GembaEscrow — a non-custodial, on-chain escrow for real estate and high-value
+  assets, built on GembaBlockchain Testnet (EVM chain ID 821207, native coin GMB) by GEMBA IT.
+  Multi-party approval, automatic timeout refunds, zero platform cut, clone-factory deployment,
+  IPFS document storage. Solidity + React + ethers.js.
+Canonical: https://escrow.gembait.com/
+More: https://escrow.gembait.com/llms.txt
+Contact: https://escrow.gembait.com/en/contact (contacts@gembait.com)
