@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import { Link, useParams } from 'react-router-dom';
 import GembaLogo from './GembaLogo';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const { lang } = useParams();
   return (
     <footer style={{ borderTop: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -13,8 +15,10 @@ export default function Footer() {
           </span>
           <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>— {t('footer.by')}</span>
         </div>
-        <div className="flex items-center gap-4">
-          <a href="https://gembait.com" className="text-xs no-underline" style={{ color: 'var(--text-tertiary)' }}>gembait.com ↗</a>
+        <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center">
+          <Link to={`/${lang || 'en'}/terms`} className="text-xs no-underline" style={{ color: 'var(--text-tertiary)' }}>{t('nav.terms')}</Link>
+          <Link to={`/${lang || 'en'}/privacy`} className="text-xs no-underline" style={{ color: 'var(--text-tertiary)' }}>{t('nav.privacy')}</Link>
+          <a href="https://gembait.com" className="text-xs no-underline" style={{ color: 'var(--text-tertiary)' }}>gembait.com</a>
           <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© 2026 GEMBA IT — {t('footer.rights')}</span>
         </div>
       </div>

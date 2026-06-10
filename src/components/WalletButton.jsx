@@ -42,20 +42,6 @@ export default function WalletButton({ role }) {
 
   return (
     <div className="flex items-center gap-2">
-      {role && (
-        <span
-          className="text-xs px-2.5 py-1 rounded-md"
-          style={{
-            backgroundColor: 'var(--bg-secondary)',
-            color: 'var(--text-secondary)',
-            border: '1px solid var(--border-color)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-          }}
-        >
-          {t(`wallet.role.${role}`)}
-        </span>
-      )}
       <span
         className="text-xs px-2.5 py-1 rounded-md font-mono"
         style={{

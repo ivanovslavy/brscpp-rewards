@@ -10,6 +10,8 @@ import Contests from './pages/Contests';
 import Settings from './pages/Settings';
 import Contact from './pages/Contact';
 import Faucet from './pages/Faucet';
+import Legal from './pages/Legal';
+import ToSConsent from './components/ToSConsent';
 import { useFactory } from './lib/useFactory';
 
 function LangWrapper({ children }) {
@@ -49,11 +51,15 @@ export default function App() {
             <Route path="/:lang/contests" element={<LangWrapper><Contests factory={factory} /></LangWrapper>} />
             <Route path="/:lang/contact" element={<LangWrapper><Contact /></LangWrapper>} />
             <Route path="/:lang/settings" element={<LangWrapper><Settings factory={factory} /></LangWrapper>} />
+            <Route path="/:lang/faucet" element={<LangWrapper><Faucet factory={factory} /></LangWrapper>} />
+            <Route path="/:lang/terms" element={<LangWrapper><Legal kind="terms" /></LangWrapper>} />
+            <Route path="/:lang/privacy" element={<LangWrapper><Legal kind="privacy" /></LangWrapper>} />
             <Route path="*" element={<Navigate to="/en" replace />} />
           </Routes>
         </main>
         <Footer />
       </div>
+      <ToSConsent appName="GembaWin" />
     </>
   );
 }

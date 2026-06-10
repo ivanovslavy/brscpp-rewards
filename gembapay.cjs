@@ -103,6 +103,16 @@ module.exports = function registerGembaPay(app, opts = {}) {
     res.json({ orderId: o.orderId, status: o.status, amount: o.amount, currency: o.currency, paidAt: o.paidAt || null });
   });
 
+  // mark an order redeemed after a successful on-chain deploy. Double-spend record /
+  // UX layer — the on-chain factory `usedOrder` mapping is the hard guard.
+  app.post('/api/redeem-order', (req, res) => {
+    const { orderId } = req.body || {};
+    const o = orderId ? orders[orderId] : null;
+    if (!o) return res.status(404).json({ error: 'not found' });
+    if (o.status === 'paid') { o.status = 'redeemed'; o.redeemedAt = Date.now(); saveOrders(); }
+    res.json({ ok: true, status: o.status });
+  });
+
   // owner-only: change the creation fee (wallet-signature gated)
   app.post('/api/admin/set-fee', (req, res) => {
     if (!ethers) return res.status(500).json({ error: 'signature verification unavailable' });

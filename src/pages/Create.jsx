@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { NETWORK_CONFIG } from '../contracts/hardhat-config';
+import { BrowserProvider, Contract } from 'ethers';
+import { NETWORK_CONFIG, CONTRACTS, FACTORY_ABI } from '../contracts/hardhat-config';
 import { ALL_TOKENS } from '../config/tokens';
 import { usePayment } from '../lib/usePayment';
 import PaymentGate from '../components/PaymentGate';
+import { switchToGemba } from '../lib/switchChain';
 
 function TxLink({ hash, label }) {
   return (
@@ -22,7 +24,10 @@ export default function Create({ factory }) {
   const navigate = useNavigate();
   const { factorySigner, isConnected, correctChain, stats } = factory;
 
-  const [form, setForm] = useState({ name: '', token: 'GMB', deadlineDays: 7, positionCount: 1 });
+  const FORM_KEY = 'gembawin-create-form';
+  const EMPTY = { name: '', token: 'GMB', deadlineDays: 7, positionCount: 1 };
+  const [form, setForm] = useState(() => { try { return JSON.parse(localStorage.getItem(FORM_KEY)) || EMPTY; } catch { return EMPTY; } });
+  useEffect(() => { localStorage.setItem(FORM_KEY, JSON.stringify(form)); }, [form]);
   const [submitting, setSubmitting] = useState(false);
   const payment = usePayment();
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -35,7 +40,6 @@ export default function Create({ factory }) {
   const selected = ALL_TOKENS.find((x) => x.symbol === form.token) || ALL_TOKENS[0];
 
   const validate = () => {
-    if (!factorySigner) { toast.error(t('create.connectFirst')); return false; }
     if (!form.name.trim()) { toast.error(t('create.errors.name')); return false; }
     if (!(positionCount >= 1 && positionCount <= 50)) { toast.error(t('create.errors.positions')); return false; }
     if (!(deadlineDays >= 1 && deadlineDays <= 365)) { toast.error(t('create.errors.deadline')); return false; }
@@ -44,9 +48,14 @@ export default function Create({ factory }) {
 
   const doDeploy = async () => {
     if (!validate()) return;
+    if (!window.ethereum) { toast.error(t('create.connectFirst')); return; }
+    const oid = payment.orderId || '';
     setSubmitting(true);
     const tid = toast.loading(t('create.submitting'));
     try {
+      await switchToGemba();
+      const dSigner = await new BrowserProvider(window.ethereum).getSigner();
+      const factoryC = new Contract(CONTRACTS.FACTORY, FACTORY_ABI, dSigner);
       const params = {
         name: form.name.trim(),
         isNativeToken: !!selected.isNative,
@@ -54,10 +63,13 @@ export default function Create({ factory }) {
         deadlineDays,
         positionCount,
       };
-      const tx = await factorySigner.createBounty(params, { value: stats?.deployFeeWei ?? 0n });
+      const tx = await factoryC.createBounty(params, oid, { value: stats?.deployFeeWei ?? 0n });
       toast.loading(t('create.confirming'), { id: tid });
       await tx.wait();
       toast.success(<TxLink hash={tx.hash} label={t('create.success')} />, { id: tid, duration: 9000 });
+      localStorage.removeItem(FORM_KEY);
+      if (oid) fetch('/api/redeem-order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: oid }) }).catch(() => {});
+      payment.reset();
       factory.reload();
       navigate(`/${lang}/contests`);
     } catch (err) {

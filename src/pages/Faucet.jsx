@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Contract } from 'ethers';
+import { Contract, BrowserProvider } from 'ethers';
 import toast from 'react-hot-toast';
 import { CONTRACTS, FAUCET_ABI, NETWORK_CONFIG } from '../contracts/hardhat-config';
 import { ALL_TOKENS } from '../config/tokens';
+import { switchToGemba } from '../lib/switchChain';
 
 const DRIP = { GMB: '0.1', USDT: '10,000', USDC: '10,000', EURC: '10,000' };
 
@@ -21,34 +22,55 @@ export default function Faucet({ factory }) {
   const { signer, provider, address, isConnected, correctChain } = factory;
   const [avail, setAvail] = useState({});
   const [busy, setBusy] = useState('');
+  const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
 
   const loadStatus = useCallback(async () => {
-    if (!provider || !address || !correctChain) return;
-    const faucet = new Contract(CONTRACTS.FAUCET, FAUCET_ABI, provider);
-    const next = {};
+    if (!window.ethereum) return;
+    let acct = address;
     try {
-      next.GMB = Number(await faucet.gmbAvailableAt(address));
+      if (!acct) { const a = await window.ethereum.request({ method: 'eth_accounts' }); acct = a && a[0]; }
+      if (!acct) return;
+      const bp = new BrowserProvider(window.ethereum);
+      const net = await bp.getNetwork();
+      if (Number(net.chainId) !== 821207) return;
+      const faucet = new Contract(CONTRACTS.FAUCET, FAUCET_ABI, bp);
+      const next = {};
+      next.GMB = Number(await faucet.gmbAvailableAt(acct));
       for (const tok of ALL_TOKENS) {
         if (tok.isNative) continue;
-        next[tok.symbol] = Number(await faucet.tokenAvailableAt(address, tok.address));
+        next[tok.symbol] = Number(await faucet.tokenAvailableAt(acct, tok.address));
       }
       setAvail(next);
-    } catch { /* ignore */ }
-  }, [provider, address, correctChain]);
+    } catch (e) { console.error('faucet status', e); }
+  }, [address]);
 
-  useEffect(() => { loadStatus(); }, [loadStatus]);
+  useEffect(() => {
+    loadStatus();
+    const id = setInterval(loadStatus, 15000);
+    return () => clearInterval(id);
+  }, [loadStatus]);
+
+  // live clock so the countdown ticks down
+  useEffect(() => {
+    const id = setInterval(() => setNow(Math.floor(Date.now() / 1000)), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const claim = async (tok) => {
-    if (!signer) return toast.error(t('faucet.connectFirst'));
+    if (!window.ethereum) return toast.error(t('faucet.connectFirst'));
     setBusy(tok.symbol);
     const tid = toast.loading(t('common.submitting'));
     try {
-      const faucet = new Contract(CONTRACTS.FAUCET, FAUCET_ABI, signer);
+      await switchToGemba();
+      const dSigner = await new BrowserProvider(window.ethereum).getSigner();
+      const faucet = new Contract(CONTRACTS.FAUCET, FAUCET_ABI, dSigner);
       const tx = tok.isNative ? await faucet.claimGMB() : await faucet.claimToken(tok.address);
       toast.loading(t('common.confirming'), { id: tid });
       await tx.wait();
       toast.success(<TxLink hash={tx.hash} label={t('faucet.claimed', { sym: tok.symbol })} />, { id: tid, duration: 8000 });
       loadStatus();
+      setTimeout(loadStatus, 2000);
+      setTimeout(loadStatus, 5000);
     } catch (err) {
       toast.error(err?.shortMessage || err?.reason || t('faucet.failed'), { id: tid });
     } finally {
@@ -56,11 +78,12 @@ export default function Faucet({ factory }) {
     }
   };
 
-  const now = Math.floor(Date.now() / 1000);
   const cooldownLabel = (ts) => {
     if (!ts || ts <= now) return null;
-    const h = Math.ceil((ts - now) / 3600);
-    return t('faucet.availableIn', { h });
+    const s = ts - now;
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const left = h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+    return t('faucet.availableIn', { t: left });
   };
 
   return (

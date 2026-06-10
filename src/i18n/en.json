@@ -16,7 +16,9 @@
     "settings": "Settings",
     "backToGembait": "← gembait.com",
     "contact": "Contact",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "terms": "Terms",
+    "privacy": "Privacy"
   },
   "wallet": {
     "connect": "Connect Wallet",
@@ -198,7 +200,7 @@
     "claim": "Claim",
     "claimed": "Claimed {{sym}} —",
     "failed": "Claim failed",
-    "availableIn": "in ~{{h}}h",
+    "availableIn": "in {{t}}",
     "connectFirst": "Connect your wallet to claim.",
     "wrongNetwork": "Switch your wallet to {{name}}.",
     "note": "Per wallet: 0.1 GMB and 10,000 of each stablecoin per 24h. These are valueless testnet assets.",
@@ -215,5 +217,15 @@
     "failed": "Payment failed or cancelled.",
     "retry": "Try again",
     "payAndCreate": "Pay {{fee}} & create"
+  },
+  "tos": {
+    "title": "Accept the Terms",
+    "body": "To continue, please confirm that you accept our Terms of Service and Privacy Policy. You will sign a short message — it is free and gasless (no transaction, no fee).",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "agree": "Agree & sign (gasless)",
+    "gasless": "Off-chain signature · no gas · no transaction",
+    "rejected": "Signature rejected",
+    "signMessage": "I accept the {{app}} Terms of Service and Privacy Policy (version {{date}}).\n\nThis is an off-chain, gasless signature that only records my acceptance — it authorises no transaction and moves no funds.\n\nWallet: {{addr}}"
   }
 }

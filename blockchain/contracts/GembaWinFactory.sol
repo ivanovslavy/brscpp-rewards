@@ -64,6 +64,10 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
     /// @notice Prize tokens accepted for ERC-20 contests (native GMB is always allowed).
     mapping(address => bool) public supportedToken;
 
+    /// @notice keccak256(orderId) => used. A GembaPay order funds only ONE contest
+    /// (on-chain anti double-spend; empty orderId = free direct deploy, no check).
+    mapping(bytes32 => bool) public usedOrder;
+
     // ========== EVENTS ==========
     event BountyCreated(uint256 indexed contractId, address indexed contractAddress, address indexed creator, string name, uint256 positionCount, uint256 deployFeePaid);
     event TemplateUpdated(address indexed oldTemplate, address indexed newTemplate);
@@ -110,7 +114,7 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
      * @return contractId Sequential id of the new contest.
      * @return contractAddress Address of the deployed clone.
      */
-    function createBounty(BountyParams calldata params)
+    function createBounty(BountyParams calldata params, string calldata orderId)
         external
         payable
         whenNotPaused
@@ -118,6 +122,12 @@ contract GembaWinFactory is AccessControlEnumerable, ReentrancyGuard {
         nonReentrant
         returns (uint256 contractId, address contractAddress)
     {
+        // One paid GembaPay order = one contest (prevents reusing a payment).
+        if (bytes(orderId).length > 0) {
+            bytes32 oid = keccak256(bytes(orderId));
+            require(!usedOrder[oid], "Order already used");
+            usedOrder[oid] = true;
+        }
         require(msg.value >= deployFee, "Insufficient deploy fee");
         _validateParams(params);
         if (!params.isNativeToken) require(supportedToken[params.tokenAddress], "Unsupported token");

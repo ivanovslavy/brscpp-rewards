@@ -16,7 +16,9 @@
     "settings": "Ajustes",
     "backToGembait": "← gembait.com",
     "contact": "Contacto",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "terms": "Términos",
+    "privacy": "Privacidad"
   },
   "wallet": {
     "connect": "Conectar billetera",
@@ -198,7 +200,7 @@
     "claim": "Reclamar",
     "claimed": "Reclamado {{sym}} —",
     "failed": "Reclamo fallido",
-    "availableIn": "en ~{{h}}h",
+    "availableIn": "en {{t}}",
     "connectFirst": "Conecta tu billetera para reclamar.",
     "wrongNetwork": "Cambia tu billetera a {{name}}.",
     "note": "Por billetera: 0.1 GMB y 10,000 de cada stablecoin cada 24h. Son activos de testnet sin valor.",
@@ -215,5 +217,15 @@
     "failed": "El pago falló o fue cancelado.",
     "retry": "Intentar de nuevo",
     "payAndCreate": "Pagar {{fee}} y crear"
+  },
+  "tos": {
+    "title": "Aceptar los términos",
+    "body": "Para continuar, confirma que aceptas nuestros Términos de servicio y la Política de privacidad. Firmarás un mensaje corto — es gratis y sin gas (sin transacción, sin comisión).",
+    "terms": "Términos de servicio",
+    "privacy": "Política de privacidad",
+    "agree": "Aceptar y firmar (sin gas)",
+    "gasless": "Firma off-chain · sin gas · sin transacción",
+    "rejected": "Firma rechazada",
+    "signMessage": "Acepto los Términos de servicio y la Política de privacidad de {{app}} (versión {{date}}).\n\nEsta es una firma off-chain y sin gas que solo registra mi aceptación — no autoriza ninguna transacción ni mueve fondos.\n\nBilletera: {{addr}}"
   }
 }

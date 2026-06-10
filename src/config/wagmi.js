@@ -1,4 +1,4 @@
-import { http, createConfig } from 'wagmi';
+import { http, createConfig, fallback } from 'wagmi';
 import { defineChain } from 'viem';
 import { injected, walletConnect } from 'wagmi/connectors';
 
@@ -45,6 +45,10 @@ export const config = createConfig({
   chains: SUPPORTED_CHAINS,
   connectors,
   transports: {
-    [gembaTestnet.id]: http('https://testnet.gembascan.io/rpc'),
+    [gembaTestnet.id]: fallback([
+      http('https://rpc1.gembascan.io'),
+      http('https://rpc2.gembascan.io'),
+      http('https://testnet.gembascan.io/rpc'),
+    ]),
   },
 });

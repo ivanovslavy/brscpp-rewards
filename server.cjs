@@ -83,7 +83,7 @@ app.post('/api/contact', async (req, res) => {
 
 require('./gembapay.cjs')(app, { appName: 'GembaWin', dataDir: __dirname, ownerAddress: '0x5578c75F22dE0bf1caA4BdD46BA28406C696a5dC' });
 
-app.use(express.static(DIST, { maxAge: '1h' }));
-app.get('*', (_req, res) => res.sendFile(path.join(DIST, 'index.html')));
+app.use(express.static(DIST, { maxAge: '1y', index: false, setHeaders: (res, p) => { if (p.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache'); } }));
+app.get('*', (_req, res) => { res.set('Cache-Control', 'no-cache'); res.sendFile(path.join(DIST, 'index.html')); });
 
 app.listen(PORT, '127.0.0.1', () => console.log(`win.gembait.com on 127.0.0.1:${PORT}`));

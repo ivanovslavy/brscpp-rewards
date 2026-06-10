@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Contract, parseUnits } from 'ethers';
+import { Contract, parseUnits, BrowserProvider } from 'ethers';
+import { switchToGemba } from '../lib/switchChain';
 import toast from 'react-hot-toast';
 import { CONTEST_ABI, NETWORK_CONFIG } from '../contracts/hardhat-config';
 
@@ -99,15 +100,21 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
   const [winners, setWinners] = useState(Array(c.positionCount).fill(''));
 
   const isOwner = eqAddr(c.creator, address);
-  const contestW = signer ? new Contract(c.address, CONTEST_ABI, signer) : null;
   const sym = c.token?.symbol || 'tokens';
 
+  // fresh signer straight from the wallet — bypasses the flaky wagmi adapter
+  const freshSigner = async () => {
+    await switchToGemba();
+    return new BrowserProvider(window.ethereum).getSigner();
+  };
+
   const run = async (key, fn) => {
-    if (!contestW) return toast.error(t('contests.connectFirst'));
+    if (!window.ethereum) return toast.error(t('contests.connectFirst'));
     setBusy(key);
     const tid = toast.loading(t('common.submitting'));
     try {
-      const tx = await fn();
+      const cw = new Contract(c.address, CONTEST_ABI, await freshSigner());
+      const tx = await fn(cw);
       toast.loading(t('common.confirming'), { id: tid });
       await tx.wait();
       toast.success(<TxLink hash={tx.hash} label={t('common.done')} />, { id: tid, duration: 8000 });
@@ -122,18 +129,21 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
     const wei = amounts.map((a) => { try { return parseUnits(String(a || '0'), c.token.decimals); } catch { return -1n; } });
     if (wei.some((w) => w <= 0n)) return toast.error(t('contests.amountsInvalid'));
     const total = wei.reduce((s, w) => s + w, 0n);
+    if (!window.ethereum) return toast.error(t('contests.connectFirst'));
     if (c.isNativeToken) {
-      run('deposit', () => contestW.depositFunds(wei, { value: total }));
+      run('deposit', (cw) => cw.depositFunds(wei, { value: total }));
     } else {
-      // ERC-20: approve then deposit
+      // ERC-20: approve then deposit — automatically, one after another
       setBusy('deposit');
       const tid = toast.loading(t('contests.approving'));
       try {
-        const token = new Contract(c.tokenAddress, ERC20_ABI, signer);
+        const s = await freshSigner();
+        const token = new Contract(c.tokenAddress, ERC20_ABI, s);
         const allow = await token.allowance(address, c.address);
         if (allow < total) { const atx = await token.approve(c.address, total); await atx.wait(); }
         toast.loading(t('common.submitting'), { id: tid });
-        const tx = await contestW.depositFunds(wei, { value: 0 });
+        const cw = new Contract(c.address, CONTEST_ABI, s);
+        const tx = await cw.depositFunds(wei, { value: 0 });
         toast.loading(t('common.confirming'), { id: tid });
         await tx.wait();
         toast.success(<TxLink hash={tx.hash} label={t('common.done')} />, { id: tid, duration: 8000 });
@@ -180,18 +190,18 @@ function ContestModal({ c, address, signer, t, onClose, onDone }) {
                     <input className="form-input" style={{ fontSize: 13 }} placeholder="0x… winner" value={winners[i]}
                       onChange={(e) => setWinners((w) => w.map((x, j) => (j === i ? e.target.value : x)))} spellCheck={false} />
                     <button className="btn-flat primary" style={{ whiteSpace: 'nowrap' }} disabled={busy === `w${i}`}
-                      onClick={() => { if (!/^0x[a-fA-F0-9]{40}$/.test(winners[i].trim())) return toast.error(t('contests.addrInvalid')); run(`w${i}`, () => contestW.setWinner(i, winners[i].trim())); }}>
+                      onClick={() => { if (!/^0x[a-fA-F0-9]{40}$/.test(winners[i].trim())) return toast.error(t('contests.addrInvalid')); run(`w${i}`, (cw) => cw.setWinner(i, winners[i].trim())); }}>
                       {t('contests.setWinner')}
                     </button>
                   </div>
                 )}
                 {canClaim && (
-                  <button className="btn-flat primary w-full justify-center mt-2" disabled={busy === `c${i}`} onClick={() => run(`c${i}`, () => contestW.claimBounty(i))}>
+                  <button className="btn-flat primary w-full justify-center mt-2" disabled={busy === `c${i}`} onClick={() => run(`c${i}`, (cw) => cw.claimBounty(i))}>
                     {t('contests.claim')}
                   </button>
                 )}
                 {canWithdraw && (
-                  <button className="btn-outline w-full justify-center mt-2" disabled={busy === `x${i}`} onClick={() => run(`x${i}`, () => contestW.withdrawUnclaimed(i, address))}>
+                  <button className="btn-outline w-full justify-center mt-2" disabled={busy === `x${i}`} onClick={() => run(`x${i}`, (cw) => cw.withdrawUnclaimed(i, address))}>
                     {t('contests.withdraw')}
                   </button>
                 )}
