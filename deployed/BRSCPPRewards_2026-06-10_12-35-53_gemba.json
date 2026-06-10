@@ -1,0 +1,19 @@
+{
+  "network": "GembaBlockchain Testnet",
+  "contractName": "BRSCPPRewards",
+  "contractAddress": "0x68EF7dcbF9C1403D49c64b1d40F1A316be554385",
+  "deployer": "0x5578c75F22dE0bf1caA4BdD46BA28406C696a5dC",
+  "deploymentTime": "2026-06-10T09:35:53.495Z",
+  "blockNumber": 65340,
+  "transactionHash": "0x334451702899711fd38c00d4dfb55103f0ae4b5ea95a3f58842e3124f06d4579",
+  "constructorArguments": [],
+  "compiler": {
+    "version": "0.8.27",
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "network": "GembaBlockchain Testnet",
+  "chainId": 821207,
+  "factory": "0xf2dc67274CCd82bcFa3e446BcD55fB1889866e26",
+  "template": "0x1c99D2912D6b8F31b7F9c697C242f8882474524D",
+  "owner": "0x5578c75F22dE0bf1caA4BdD46BA28406C696a5dC",
+  "deployFee": "0",
+  "deployedAt": "2026-06-10T11:45:54.988Z"
+}
